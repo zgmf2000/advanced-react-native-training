@@ -3,11 +3,11 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
 
-type GreetingProps = {
+type Props = {
   name: string,
 };
 
-function Greeting(props: GreetingProps) {
+function Greeting(props: Props) {
   return <Text>{props.name}</Text>;
 }
 
