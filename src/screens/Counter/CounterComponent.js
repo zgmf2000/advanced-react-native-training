@@ -7,16 +7,20 @@ import {Text} from '../../core-ui';
 
 type Props = {
   counter: number,
+  color: string,
   onIncrement: () => void,
   onDecrement: () => void,
+  onColorChange: () => void,
 };
 
 function Counter(props: Props) {
-  let {counter, onIncrement, onDecrement} = props;
+  let {counter, onIncrement, onDecrement, color, onColorChange} = props;
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, {backgroundColor: color}]}>
       <TouchableOpacity style={styles.button} onPress={onIncrement} />
-      <Text style={styles.counterText}>{counter}</Text>
+      <TouchableOpacity style={styles.button} onPress={onColorChange}>
+        <Text style={styles.counterText}>{counter}</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={onDecrement} />
     </View>
   );
@@ -25,12 +29,13 @@ function Counter(props: Props) {
 let styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#ffc425',
     alignItems: 'center',
   },
   button: {
     flex: 1,
     width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   counterText: {
     fontSize: 130,
