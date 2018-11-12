@@ -6,7 +6,7 @@ type State = {
   color: string,
 };
 
-function withColorChanger<T>(Component: React.ComponentType<*, *>) {
+function withColorChanger<T>(Component: React.ComponentType<$Diff<any, any>>) {
   return class Enhancer extends React.Component<T, State> {
     constructor() {
       super(...arguments);
