@@ -12,7 +12,7 @@ type Props = {
 };
 
 function App(props: Props) {
-  const {counter, onIncrement, onDecrement, onColorChange, color} = props;
+  const {onColorChange, color} = props;
   return <CounterComponent color={color} onColorChange={onColorChange} />;
 }
 
