@@ -1,9 +1,7 @@
 // @flow
-
 import * as React from 'react';
-import withCounter from './screens/Counter/withCounter';
 import withColorChanger from './screens/Color/withColorChanger';
-import CounterComponent from './screens/Counter/CounterComponent';
+import CounterComponent from './screens/Counter/Counter';
 
 type Props = {
   counter: number,
@@ -15,15 +13,7 @@ type Props = {
 
 function App(props: Props) {
   const {counter, onIncrement, onDecrement, onColorChange, color} = props;
-  return (
-    <CounterComponent
-      counter={counter}
-      color={color}
-      onIncrement={onIncrement}
-      onDecrement={onDecrement}
-      onColorChange={onColorChange}
-    />
-  );
+  return <CounterComponent color={color} onColorChange={onColorChange} />;
 }
 
-export default withColorChanger(withCounter(App));
+export default withColorChanger(App);

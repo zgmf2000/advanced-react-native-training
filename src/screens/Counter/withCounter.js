@@ -18,7 +18,7 @@ function withCounter<T>(Component: React.ComponentType<T>) {
     }
 
     render() {
-      return <Component counter={this.state} {...this.props} />;
+      return <Component counter={this.state.counter} {...this.props} />;
     }
 
     _onIncrement = () => {

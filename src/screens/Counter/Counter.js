@@ -5,7 +5,11 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {Text} from '../../core-ui';
 
-type Props = {};
+type Props = {
+  color: string,
+  onColorChange: () => void,
+};
+
 type State = {
   counter: number,
 };
@@ -29,21 +33,26 @@ let reducer = (action) => (state) => {
     }
   }
 };
+
 export default class Counter extends Component<Props, State> {
   state = {
     counter: 0,
   };
 
   render() {
+    const {color, onColorChange} = this.props;
+
     return (
-      <View style={styles.root}>
+      <View style={[styles.root, {backgroundColor: color}]}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
             this.dispatch({type: 'Increment'});
           }}
         />
-        <Text style={styles.counterText}>{this.state.counter}</Text>
+        <TouchableOpacity style={styles.button} onPress={onColorChange}>
+          <Text style={styles.counterText}>{this.state.counter}</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -68,6 +77,8 @@ let styles = StyleSheet.create({
   button: {
     flex: 1,
     width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   counterText: {
     fontSize: 130,

@@ -20,6 +20,7 @@ function withColorChanger<T>(Component: React.ComponentType<$Diff<any, any>>) {
         <Component
           onColorChange={this._getRandomColor}
           color={this.state.color}
+          {...this.props}
         />
       );
     }

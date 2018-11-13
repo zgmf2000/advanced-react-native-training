@@ -1,9 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
-
-import {Text} from '../../core-ui';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 
 type Props = {
   counter: number,
@@ -14,7 +12,7 @@ type Props = {
 };
 
 function Counter(props: Props) {
-  let {counter, onIncrement, onDecrement, color, onColorChange} = props;
+  const {counter, onIncrement, onDecrement, color, onColorChange} = props;
   return (
     <View style={[styles.root, {backgroundColor: color}]}>
       <TouchableOpacity style={styles.button} onPress={onIncrement} />
