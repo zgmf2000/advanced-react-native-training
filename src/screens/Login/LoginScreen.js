@@ -1,57 +1,38 @@
 // @flow
 
 import * as React from 'react';
-import {View, Text, StyleSheet, Alert} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {TextField, Button} from '../../core-ui';
+import withCredentials from './withCredentials';
 
-type Props = {};
-
-type State = {|
+type Props = {
   username: string,
   password: string,
-|};
+  onChangeText: (string) => (string) => void,
+  onSubmit: () => void,
+};
 
 // eslint-disable-next-line
-class LoginScreen extends React.Component<Props, State> {
-  constructor() {
-    super(...arguments);
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
+function LoginScreen(props: Props) {
+  const {username, password, onChangeText, onSubmit} = props;
 
-  _onSubmit = () => {
-    const {username, password} = this.state;
-    Alert.alert(
-      'Submission Success!',
-      `Your username is ${username}, and your password is ${password}`,
-    );
-  };
-
-  _onChangeText = (stateToChange) => (text) => {
-    this.setState({
-      [stateToChange]: text,
-    });
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Login</Text>
-        <TextField
-          placeholder="Username"
-          onChangeText={this._onChangeText('username')}
-        />
-        <TextField
-          placeholder="Password"
-          secureTextEntry={true}
-          onChangeText={this._onChangeText('password')}
-        />
-        <Button text="Submit" onPress={this._onSubmit} />
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
+      <TextField
+        placeholder="Username"
+        value={username}
+        onChangeText={onChangeText('username')}
+      />
+      <TextField
+        placeholder="Password"
+        value={password}
+        secureTextEntry={true}
+        onChangeText={onChangeText('password')}
+      />
+      <Button text="Submit" onPress={onSubmit} />
+    </View>
+  );
 }
 
 let styles = StyleSheet.create({
@@ -68,4 +49,4 @@ let styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default withCredentials(LoginScreen);
