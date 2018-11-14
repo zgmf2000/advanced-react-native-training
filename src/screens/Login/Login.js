@@ -19,13 +19,21 @@ type Action =
   | {type: 'ChangePassword', password: string}
   | {type: 'SetActiveTextInput', activeTextInput: InputType};
 
-const INITIAL_STATE = {
+type State = {
+  email: string,
+  password: string,
+  activeTextInput: 'EMAIL' | 'PASSWORD' | null,
+};
+
+export const LOGIN_INITIAL_STATE = {
   email: '',
   password: '',
   activeTextInput: null,
 };
 
-let reducer = (action: Action) => (state = INITIAL_STATE) => {
+export const loginReducer = (action: Action) => (
+  state: State = LOGIN_INITIAL_STATE,
+) => {
   switch (action.type) {
     case 'ChangeEmail': {
       return {
@@ -53,12 +61,6 @@ let reducer = (action: Action) => (state = INITIAL_STATE) => {
 
 type Props = {
   onSubmit: (email: string, password: string) => void,
-};
-
-type State = {
-  email: string,
-  password: string,
-  activeTextInput: 'EMAIL' | 'PASSWORD' | null,
 };
 
 class Login extends React.Component<Props, State> {
@@ -121,7 +123,7 @@ class Login extends React.Component<Props, State> {
   }
 
   dispatch = (action: Action) => {
-    this.setState(reducer(action));
+    this.setState(loginReducer(action));
   };
 }
 
