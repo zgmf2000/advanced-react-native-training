@@ -3,7 +3,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import type {InitialState, Action} from '../store/reducers';
+import type {ReducerState, Action} from '../types';
 
 class CounterPage extends React.Component<*, *> {
   render() {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state: InitialState) => {
+const mapStateToProps = (state: ReducerState) => {
   return {
     counter: state.counter,
   };
