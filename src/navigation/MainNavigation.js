@@ -2,11 +2,18 @@
 import React from 'react';
 
 import Navigator from './components/Navigator';
-import {Chart, Login, AddTransaction, Dashboard} from '../screens';
+import {
+  Chart,
+  Login,
+  Authentification,
+  AddTransaction,
+  Dashboard,
+} from '../screens';
 
 const MainNavigation = () => {
   return (
     <Navigator>
+      <Authentification />
       <Chart />
       <AddTransaction />
       <Dashboard />
