@@ -5,7 +5,7 @@ import Navigator from './components/Navigator';
 import {
   Chart,
   Login,
-  Authentification,
+  Authentication,
   AddTransaction,
   Dashboard,
 } from '../screens';
@@ -13,7 +13,7 @@ import {
 const MainNavigation = () => {
   return (
     <Navigator>
-      <Authentification />
+      <Authentication />
       <Chart />
       <AddTransaction />
       <Dashboard />

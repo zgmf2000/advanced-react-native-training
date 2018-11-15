@@ -9,14 +9,16 @@ import Logo from '../../images/logo.png';
 
 type Props = {
   token: string;
-  navigateTo: (route: string) => void;
+  navigation: {
+    navigate: (route: string) => void;
+  };
 };
 
 class Authentication extends Component<Props, *> {
   componentDidMount() {
     // TODO: navigate according to whether token exist
     setTimeout(() => {
-      this.props.navigateTo('Login');
+      this.props.navigation.navigate('Login');
     }, 1500);
   }
 
