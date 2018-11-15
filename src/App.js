@@ -16,7 +16,7 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <Provider store={store}>
-        <Login />
+        <Dashboard />
       </Provider>
     );
   }

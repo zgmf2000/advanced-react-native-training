@@ -14,10 +14,18 @@ function transactionReducer(
       return editTransaction(state, action.payload.data);
     case 'DELETE_TRANSACTION':
       return deleteTransaction(state, action.payload.id);
+    case 'VIEW_TRANSACTION_BY_TYPE':
+      return viewTransactionType(state, action.payload.type);
     default:
       return state;
   }
 }
+
+const viewTransactionType = (
+  transactionList: Array<Transaction>,
+  type: 'EXPENSE' | 'INCOME') => {
+  return TRANSACTION_LIST.filter((transaction: Transaction) => transaction.type === type);
+};
 
 function addTransaction(
   transactionList: Array<Transaction>,

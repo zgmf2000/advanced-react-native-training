@@ -22,31 +22,37 @@ export type Transaction = {
 
 export type CounterAction =
   | {
-      type: 'PLUS_NUMBER';
-    }
+  type: 'PLUS_NUMBER';
+}
   | {
-      type: 'MIN_NUMBER';
-    };
+  type: 'MIN_NUMBER';
+};
 
 export type TransactionAction =
   | {
-      type: 'ADD_TRANSACTION';
-      payload: {
-        data: Transaction;
-      };
-    }
+  type: 'ADD_TRANSACTION';
+  payload: {
+    data: Transaction;
+  };
+}
   | {
-      type: 'DELETE_TRANSACTION';
-      payload: {
-        id: string;
-      };
-    }
+  type: 'DELETE_TRANSACTION';
+  payload: {
+    id: string;
+  };
+}
   | {
-      type: 'EDIT_TRANSACTION';
-      payload: {
-        data: Transaction;
-      };
-    };
+  type: 'EDIT_TRANSACTION';
+  payload: {
+    data: Transaction;
+  };
+}
+  | {
+  type: 'VIEW_TRANSACTION_BY_TYPE';
+  payload: {
+    type: 'EXPENSE' | 'INCOME';
+  };
+};
 
 export type RootAction = CounterAction | TransactionAction | LoginAction;
 

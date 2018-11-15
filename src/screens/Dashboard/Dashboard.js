@@ -11,6 +11,7 @@ import type {Transaction} from '../../types/index';
 
 type Props = {
   transactionList: Array<Transaction>;
+  viewTransactionByType: (type: 'INCOME' | 'EXPENSE') => void;
 };
 
 class Dashboard extends Component<Props, *> {
@@ -18,8 +19,8 @@ class Dashboard extends Component<Props, *> {
     return (
       <View style={{padding: 10, flex: 1}}>
         <View style={{flexDirection: 'row'}}>
-          <BalanceCard title="Income" amount="$13,500.00" color={BLUE_SEA} />
-          <BalanceCard title="Expense" amount="$49,000.00" color={RED} />
+          <BalanceCard onPress={() => this._handleViewTransaction('INCOME')} title="Income" amount="$13,500.00" color={BLUE_SEA} />
+          <BalanceCard onPress={() => this._handleViewTransaction('EXPENSE')} title="Expense" amount="$49,000.00" color={RED} />
         </View>
         <View style={{marginTop: 15, flex: 1}}>
           <Text style={{marginBottom: 5, fontSize: 16}}>History</Text>
@@ -34,6 +35,10 @@ class Dashboard extends Component<Props, *> {
       </View>
     );
   }
+
+  _handleViewTransaction(type: 'INCOME' | 'EXPENSE') {
+    this.props.viewTransactionByType(type);
+  }
 }
 
 const mapStateToProps = (state: *) => {
@@ -42,4 +47,15 @@ const mapStateToProps = (state: *) => {
   };
 };
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    viewTransactionByType: (type: 'INCOME' | 'EXPENSE') => dispatch({
+      type: 'VIEW_TRANSACTION_BY_TYPE',
+      payload: {
+        type,
+      },
+    }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {WHITE} from '../../../constants/colors';
 
@@ -9,12 +9,14 @@ type BalanceCardProps = {
   title: string;
   amount: string;
   color: string;
+  onPress?: () => void;
 };
 
 export default function BalanceCard(props: BalanceCardProps) {
-  let {title, amount, color} = props;
+  let {title, amount, color, onPress} = props;
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={[
         balanceCardStyles.card,
         {
@@ -24,7 +26,7 @@ export default function BalanceCard(props: BalanceCardProps) {
     >
       <Text style={{fontSize: 16, color: WHITE}}>{title}</Text>
       <Text style={{fontSize: 22, color: WHITE}}>{amount}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -32,6 +34,7 @@ let balanceCardStyles = StyleSheet.create({
   card: {
     flex: 1,
     alignItems: 'center',
+    textAlign: 'center',
     padding: 20,
     margin: 5,
     borderRadius: 5,
