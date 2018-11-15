@@ -63,7 +63,7 @@ export type LoginState = {
 };
 
 export type RootState = {
-  transaction: Array<Transaction>;
+  transaction: TransactionState;
   login: LoginState;
 };
 
@@ -79,4 +79,9 @@ export type LoginAction = {
     email?: string;
     password?: string;
   };
+};
+
+export type TransactionState = {
+  activeType: '' | 'INCOME' | 'EXPENSE';
+  transactions: Array<Transaction>;
 };

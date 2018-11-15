@@ -7,11 +7,12 @@ import {connect} from 'react-redux';
 import TransactionCard from './components/TransactionCard';
 import BalanceCard from './components/BalanceCard';
 import {BLUE_SEA, RED} from '../../constants/colors';
-import type {Transaction} from '../../types/index';
+import type { RootState, Transaction } from '../../types/index';
 
 type Props = {
   transactionList: Array<Transaction>;
-  viewTransactionByType: (type: 'INCOME' | 'EXPENSE') => void;
+  activeType: '' | 'INCOME' | 'EXPENSE';
+  viewTransactionByType: (type: 'INCOME' | 'EXPENSE' | '') => void;
 };
 
 class Dashboard extends Component<Props, *> {
@@ -37,13 +38,18 @@ class Dashboard extends Component<Props, *> {
   }
 
   _handleViewTransaction(type: 'INCOME' | 'EXPENSE') {
-    this.props.viewTransactionByType(type);
+    const {activeType, viewTransactionByType} = this.props;
+    if (activeType === type) {
+      return viewTransactionByType('');
+    }
+    return viewTransactionByType(type);
   }
 }
 
-const mapStateToProps = (state: *) => {
+const mapStateToProps = (state: RootState) => {
   return {
-    transactionList: state.transaction,
+    transactionList: state.transaction.transactions,
+    activeType: state.transaction.activeType,
   };
 };
 

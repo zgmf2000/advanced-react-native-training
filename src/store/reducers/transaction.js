@@ -1,10 +1,15 @@
 // @flow
 
 import {TRANSACTION_LIST} from '../fixture';
-import type {Transaction, TransactionAction} from '../../types';
+import type {Transaction, TransactionAction, TransactionState} from '../../types';
+
+const INITIAL_STATE: TransactionState = {
+  activeType: '',
+  transactions: TRANSACTION_LIST,
+};
 
 function transactionReducer(
-  state: Array<Transaction> = TRANSACTION_LIST,
+  state: TransactionState = INITIAL_STATE,
   action: TransactionAction
 ) {
   switch (action.type) {
@@ -22,38 +27,56 @@ function transactionReducer(
 }
 
 const viewTransactionType = (
-  transactionList: Array<Transaction>,
-  type: 'EXPENSE' | 'INCOME') => {
-  return TRANSACTION_LIST.filter((transaction: Transaction) => transaction.type === type);
+  state: TransactionState,
+  type: 'EXPENSE' | 'INCOME' | '') => {
+  let transactions = TRANSACTION_LIST;
+
+  if (type !== '') {
+    transactions = TRANSACTION_LIST.filter((transaction: Transaction) => transaction.type === type);
+  }
+
+  return {
+    ...state,
+    activeType: type,
+    transactions,
+  };
 };
 
 function addTransaction(
-  transactionList: Array<Transaction>,
+  state: TransactionState,
   data: Transaction
 ) {
-  const newTransactionList = [...transactionList, data];
-  return newTransactionList;
+  const newTransactionList = [...state.transactions, data];
+  return {
+    ...state,
+    transactions: newTransactionList,
+  };
 }
 
 function editTransaction(
-  transactionList: Array<Transaction>,
+  state: TransactionState,
   data: Transaction
 ) {
-  let newTransactionList = transactionList.map((transaction) => {
+  let newTransactionList = state.transactions.map((transaction) => {
     if (transaction.id === data.id) {
       return data;
     } else {
       return transaction;
     }
   });
-  return [...newTransactionList];
+  return {
+    ...state,
+    transactions: [...newTransactionList],
+  };
 }
 
-function deleteTransaction(transactionList: Array<Transaction>, id: string) {
-  let newTransactionList = transactionList.filter(
+function deleteTransaction(state: TransactionState, id: string) {
+  let newTransactionList = state.transactions.filter(
     (transaction) => transaction.id !== id
   );
-  return [...newTransactionList];
+  return {
+    ...state,
+    transactions: [...newTransactionList]};
 }
 
 export default transactionReducer;
