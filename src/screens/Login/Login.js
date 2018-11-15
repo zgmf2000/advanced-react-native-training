@@ -14,7 +14,7 @@ import {connect} from 'react-redux';
 import {Button} from '../../core-ui';
 import {WHITE, BLUE_SEA, LIGHT_GREY} from '../../constants/colors';
 import Logo from '../../images/logo.png';
-import type {RootState} from '../../types';
+import type {LoginAction, RootState} from '../../types';
 
 type State = {
   email: string;
@@ -84,13 +84,24 @@ class Login extends Component<Props, State> {
   }
 
   _renderButton() {
-    const {token, logout} = this.props;
+    const {token} = this.props;
 
     if (token) {
-      return (<Button text="SIGN OUT" onPress={logout} />);
+      return (<Button text="SIGN OUT" onPress={this._onLogout} />);
     }
+
     return (<Button text="SIGN IN" onPress={this._onLogin} />);
   }
+
+  _onLogout = () => {
+    this.setState({
+      email: '',
+      password: '',
+      activeTextInput: null,
+    });
+
+    this.props.logout();
+  };
 
   _onLogin = () => {
     const {email, password} = this.state;
@@ -136,7 +147,9 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+type LoginDispatch = (action: LoginAction) => {};
+
+const mapDispatchToProps = (dispatch: LoginDispatch) => {
   return {
     login: ({email, password}) => dispatch({
       type: 'LOGIN_USER',
@@ -145,7 +158,7 @@ const mapDispatchToProps = (dispatch) => {
         password,
       },
     }),
-    logout: () => dispatch({type: 'LOGOUT_USER'}),
+    logout: () => dispatch({type: 'LOGOUT_USER', payload: {}}),
   };
 };
 

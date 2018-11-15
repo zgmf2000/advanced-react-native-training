@@ -48,7 +48,7 @@ export type TransactionAction =
       };
     };
 
-export type RootAction = CounterAction | TransactionAction;
+export type RootAction = CounterAction | TransactionAction | LoginAction;
 
 export type LoginState = {
   email: string;
@@ -69,5 +69,8 @@ export type LoginAction = {
   };
 } | {
   type: 'LOGOUT_USER';
-  payload: any;
+  payload: {
+    email?: string;
+    password?: string;
+  };
 };
