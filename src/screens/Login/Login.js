@@ -120,9 +120,19 @@ const mapDispatchToProps = (dispatch: (action: *) => void) => {
     submit: (data) => dispatch({type: 'LOGIN_USER', payload: {...data}}),
   };
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a46327... Fixed navigation bugs
 const LoginContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login);
+<<<<<<< HEAD
 LoginContainer.displayName = 'Login';
+=======
+
+LoginContainer.displayName = 'Login';
+
+>>>>>>> 8a46327... Fixed navigation bugs
 export default LoginContainer;

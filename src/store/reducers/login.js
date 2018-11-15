@@ -16,6 +16,10 @@ type LoginAction =
     }
   | {
       type: 'LOGOUT_USER';
+      payload: {
+        email: string;
+        password: string;
+      };
     };
 
 const INITIAL_STATE: LoginState = {

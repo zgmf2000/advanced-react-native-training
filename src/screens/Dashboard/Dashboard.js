@@ -100,5 +100,11 @@ const mapStateToProps = (state: *) => {
 };
 
 const DashboardContainer = connect(mapStateToProps)(Dashboard);
+<<<<<<< HEAD
 DashboardContainer.displayName = 'Dashboard';
+=======
+
+DashboardContainer.displayName = 'Dashboard';
+
+>>>>>>> 8a46327... Fixed navigation bugs
 export default DashboardContainer;
