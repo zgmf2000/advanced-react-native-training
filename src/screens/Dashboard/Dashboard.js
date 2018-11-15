@@ -3,11 +3,13 @@
 import React, {Component} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {connect} from 'react-redux';
+import {formatNumberComma} from '../../helpers/formatNumberToCurrency';
 
 import TransactionCard from './components/TransactionCard';
 import BalanceCard from './components/BalanceCard';
 import {BLUE_SEA, RED} from '../../constants/colors';
-import type { RootState, Transaction } from '../../types/index';
+import {TRANSACTION_LIST} from '../../store/fixture';
+import type {RootState, Transaction} from '../../types/index';
 
 type Props = {
   transactionList: Array<Transaction>;
@@ -20,8 +22,10 @@ class Dashboard extends Component<Props, *> {
     return (
       <View style={{padding: 10, flex: 1}}>
         <View style={{flexDirection: 'row'}}>
-          <BalanceCard onPress={() => this._handleViewTransaction('INCOME')} title="Income" amount="$13,500.00" color={BLUE_SEA} />
-          <BalanceCard onPress={() => this._handleViewTransaction('EXPENSE')} title="Expense" amount="$49,000.00" color={RED} />
+          <BalanceCard onPress={() => this._handleViewTransaction('INCOME')} title="Income"
+            amount={this._calculateAndFormatTotal('INCOME')} color={BLUE_SEA} />
+          <BalanceCard onPress={() => this._handleViewTransaction('EXPENSE')} title="Expense"
+            amount={this._calculateAndFormatTotal('EXPENSE')} color={RED} />
         </View>
         <View style={{marginTop: 15, flex: 1}}>
           <Text style={{marginBottom: 5, fontSize: 16}}>History</Text>
@@ -37,7 +41,17 @@ class Dashboard extends Component<Props, *> {
     );
   }
 
-  _handleViewTransaction(type: 'INCOME' | 'EXPENSE') {
+  _calculateAndFormatTotal = (type: 'INCOME' | 'EXPENSE') => {
+    let total: number = 0;
+    TRANSACTION_LIST.forEach((transaction: Transaction) => {
+      if (transaction.type === type) {
+        total = total + transaction.amount;
+      }
+    });
+    return `$ ${formatNumberComma(total)}`;
+  };
+
+  _handleViewTransaction = (type: 'INCOME' | 'EXPENSE') => {
     const {activeType, viewTransactionByType} = this.props;
     if (activeType === type) {
       return viewTransactionByType('');

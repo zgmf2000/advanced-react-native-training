@@ -6,6 +6,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {Card, Icon} from '../../../core-ui';
 import {categoryToIconName} from '../../../generals/utils';
 import {BLUE_SEA, RED} from '../../../constants/colors';
+import {formatNumberComma} from '../../../helpers/formatNumberToCurrency';
 
 import type {Transaction} from '../../../types';
 
@@ -36,7 +37,7 @@ export default function TransactionCard(props: Transaction) {
               color: isIncome ? BLUE_SEA : RED,
             }}
           >
-            {`${isIncome ? '+' : '-'}${amount}`}
+            {`${isIncome ? '+' : '-'}$${formatNumberComma(amount)}`}
           </Text>
         </View>
       </View>
