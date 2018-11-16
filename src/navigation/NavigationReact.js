@@ -1,32 +1,54 @@
-// @flow
+//@flow
 
 import {
-  createStackNavigator,
-  createSwitchNavigator,
   createDrawerNavigator,
+  createSwitchNavigator,
   createBottomTabNavigator,
+  createStackNavigator,
 } from 'react-navigation';
+
 import {
-  Dashboard,
-  Login,
-  Authentication,
   AddTransaction,
-  Chart,
-} from '../screens';
-
-const DashboardStackNavigator = createStackNavigator({
-  Dashboard,
-  Chart,
-});
-
-const AddTransactionStack = createStackNavigator({
-  Transaction: AddTransaction,
-});
-
-const MainNavigation = createSwitchNavigator({
   Authentication,
+  Chart,
+  Dashboard,
   Login,
-  Dashboard: DashboardStackNavigator,
+} from '../screens';
+import TabBar from './components/TabBar';
+
+// $FlowFixMe: Weird Flow Issue right here
+let DashboardStack = createStackNavigator({
+  dashboard: Dashboard,
 });
 
-export default MainNavigation;
+let TransactionStack = createStackNavigator({
+  addTransaction: AddTransaction,
+});
+
+let ChartStack = createStackNavigator({
+  chart: Chart,
+});
+
+let BottomNavigator = createBottomTabNavigator(
+  {
+    dashboard: DashboardStack,
+    addTransaction: TransactionStack,
+    chart: ChartStack,
+  },
+  {
+    lazy: false,
+    tabBarComponent: TabBar,
+  }
+);
+
+let DrawerNavigator = createDrawerNavigator({
+  dashboard: BottomNavigator,
+});
+
+let MainNavigator = createSwitchNavigator({
+  authentication: Authentication,
+  login: Login,
+  dashboard: DrawerNavigator,
+});
+
+export default MainNavigator;
