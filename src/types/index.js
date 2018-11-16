@@ -46,6 +46,12 @@ export type TransactionAction =
       payload: {
         data: Transaction;
       };
+    }
+  | {
+      type: 'UPDATE_TRANSACTION';
+      payload: {
+        data: Transaction[];
+      };
     };
 
 export type RootAction = CounterAction | TransactionAction;

@@ -14,9 +14,19 @@ function transactionReducer(
       return editTransaction(state, action.payload.data);
     case 'DELETE_TRANSACTION':
       return deleteTransaction(state, action.payload.id);
+    case 'UPDATE_TRANSACTION':
+      return updateTransaction(state, action.payload.data);
     default:
       return state;
   }
+}
+
+function updateTransaction(state: Transaction[], data: Transaction[]) {
+  console.log('New Transactions: ', data);
+  return [
+    ...state,
+    ...data,
+  ];
 }
 
 function addTransaction(

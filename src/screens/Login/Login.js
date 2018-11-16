@@ -1,5 +1,4 @@
 // @flow
-
 import React, {Component} from 'react';
 import {
   View,
@@ -77,7 +76,7 @@ class Login extends Component<*, State> {
     let {email, password} = this.state;
     let {submit} = this.props;
     if (submit) {
-      submit({email, password});
+      submit();
       this.props.navigation.navigate('dashboard');
     }
   };
@@ -118,7 +117,7 @@ const mapStateToProps = (state: *) => {
 
 const mapDispatchToProps = (dispatch: (action: *) => void) => {
   return {
-    submit: (data) => dispatch({type: 'LOGIN_USER', payload: {...data}}),
+    submit: () => dispatch({type: 'FETCH_TRANSACTION_LIST'}),
   };
 };
 
